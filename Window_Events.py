@@ -6,35 +6,41 @@ from WheelZoom import WheelZoom
 
 from PanThroughPortals import PanThroughPortals
 
-class Window_WASD:
-	wasd=sf.Vector3(0,0,0)
+class Window_Modifiers:
+	lShift=False
+	def KeyDown_L_SHIFT(self, e):
+		self.lShift=True
+	def KeyUp_L_SHIFT(self, e):
+		self.lShift=False
 
-	def KeyUp_A(self, e):
-		if self.wasd.x<0: self.wasd.x=0
-	def KeyUp_D(self, e):
-		if self.wasd.x>0: self.wasd.x=0
-	def KeyDown_A(self, e):
-		self.wasd.x=-self.tDelta*self.window.view.size.y/2
-	def KeyDown_D(self, e):
-		self.wasd.x= self.tDelta*self.window.view.size.y/2
+class Window_WASD(Window_Modifiers):
+	wasd=sf.Vector3(0,0,0)
 
 	def KeyUp_W(self, e):
 		if self.wasd.y<0: self.wasd.y=0
 	def KeyUp_S(self, e):
 		if self.wasd.y>0: self.wasd.y=0
 	def KeyDown_W(self, e):
-		self.wasd.y=-self.tDelta*self.window.view.size.y/2
+		self.wasd.y=-self.window.view.size.y/2
 	def KeyDown_S(self, e):
-		self.wasd.y= self.tDelta*self.window.view.size.y/2
+		self.wasd.y= self.window.view.size.y/2
 
-	def KeyUp_Q(self, e):
+	def KeyUp_A(self, e):
+		if self.wasd.x<0: self.wasd.x=0
 		if self.wasd.z<0: self.wasd.z=0
-	def KeyUp_R(self, e):
+	def KeyUp_D(self, e):
+		if self.wasd.x>0: self.wasd.x=0
 		if self.wasd.z>0: self.wasd.z=0
-	def KeyDown_Q(self, e):
-		self.wasd.z=-self.tDelta*360.0
-	def KeyDown_R(self, e):
-		self.wasd.z= self.tDelta*360.0
+	def KeyDown_A(self, e):
+		if self.lShift:
+			self.wasd.x=-self.window.view.size.y/2
+		else:
+			self.wasd.z=-90.0
+	def KeyDown_D(self, e):
+		if self.lShift:
+			self.wasd.x= self.window.view.size.y/2
+		else:
+			self.wasd.z= 90.0
 
 
 
@@ -58,8 +64,8 @@ class Window_Events(LMBLineTool,MMBPanner,WheelZoom,Window_WASD , PanThroughPort
 			if f: f(e)
 			elif not t in self.eventsIgnored: print t
 
-		dx,dy,dz=self.wasd
-		if dx or dy:
+		dx,dy,dz=self.wasd*self.tDelta
+		if dx or dy or dz:
 			a=atan2(dx,dy)-radians(w.view.rotation)
 			dx,dy=sf.Vector2(sin(a),cos(a))*sqrt(dx*dx+dy*dy)
 			w.view.move(dx,dy)

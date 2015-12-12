@@ -38,7 +38,7 @@ class PanThroughPortals:
 					# path has crossed over a portal's line
 					ip= SegSegTest(c1,c2,p1,p2).intersectPoint
 					if not ip:
-						pixelSize= 2.0 * self.window.view.size.y/self.window.size.y
+						pixelSize= length(l1p2-l1p1)/10.0
 						d1,d2=VecSegDist( c1, l1p1,l1p2),VecSegDist( c2, l1p1,l1p2)
 						if d1<pixelSize or d2<pixelSize: ip=c1
 
