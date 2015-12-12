@@ -1,5 +1,5 @@
 import sfml as sf
-from sys import argv,exit
+from sys import argv
 
 from Background import Background
 

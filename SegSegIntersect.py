@@ -1,5 +1,4 @@
 from sfml import Vector2
-from sys import exit
 
 def SegSegIntersect( s1p1,s1p2 , s2p1,s2p2 ):
 	x21,y21 = s1p2-s1p1
