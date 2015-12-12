@@ -4,7 +4,7 @@ from SegSegIntersect import SegSegIntersect
 from SFLine import SFLine
 from SFVert import SFVert
 
-class SegSegTest(sf.Drawable):
+class SegSegTest(sf.Drawable): # as in debug
 	instance=None
 	def __init__(self, s1p1,s1p2 , s2p1,s2p2 ):
 		SegSegTest.instance=self

@@ -1,8 +1,7 @@
-from PanThroughPortals import PanThroughPortals
 import sfml as sf
 from math import *
 
-class MMBPanner(PanThroughPortals):
+class MMBPanner:
 	def coord(self, p):
 		return self.window.map_pixel_to_coords(p)
 
@@ -15,11 +14,7 @@ class MMBPanner(PanThroughPortals):
 		a= radians(self.window.view.rotation)+atan2(dy,dx)
 		dx,dy=sf.Vector2(cos(a),sin(a))*sqrt(dx*dx+dy*dy)
 
-		c1=tuple(self.window.view.center)
 		self.window.view.move( dx,dy )
-		c2=self.window.view.center
-
-		self.PassViewThroughPortal(c1,c2)
 
 		self.mousePos= mousePos
 

@@ -25,6 +25,7 @@ class LMBLineTool:
 		if len(self.lines)==2:self.lines.pop()
 		self.lines.insert(0,self.line)
 		self.UpdateShader()
+		self.MouseMoveEvent= self.LMBLineTool_MouseMoveEvent
 
 	def LMBLineTool_MouseMoveEvent(self, e):
 		self.line[1].position=self.window.map_pixel_to_coords(e.position)
