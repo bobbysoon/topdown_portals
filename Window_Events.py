@@ -7,7 +7,7 @@ from WheelZoom import WheelZoom
 from PanThroughPortals import PanThroughPortals
 
 class Window_WASD:
-	wasd=sf.Vector2(0,0)
+	wasd=sf.Vector3(0,0,0)
 
 	def KeyUp_A(self, e):
 		if self.wasd.x<0: self.wasd.x=0
@@ -26,6 +26,15 @@ class Window_WASD:
 		self.wasd.y=-self.tDelta*self.window.view.size.y/2
 	def KeyDown_S(self, e):
 		self.wasd.y= self.tDelta*self.window.view.size.y/2
+
+	def KeyUp_Q(self, e):
+		if self.wasd.z<0: self.wasd.z=0
+	def KeyUp_R(self, e):
+		if self.wasd.z>0: self.wasd.z=0
+	def KeyDown_Q(self, e):
+		self.wasd.z=-self.tDelta*360.0
+	def KeyDown_R(self, e):
+		self.wasd.z= self.tDelta*360.0
 
 
 
@@ -49,11 +58,12 @@ class Window_Events(LMBLineTool,MMBPanner,WheelZoom,Window_WASD , PanThroughPort
 			if f: f(e)
 			elif not t in self.eventsIgnored: print t
 
-		dx,dy=self.wasd
+		dx,dy,dz=self.wasd
 		if dx or dy:
 			a=atan2(dx,dy)-radians(w.view.rotation)
 			dx,dy=sf.Vector2(sin(a),cos(a))*sqrt(dx*dx+dy*dy)
 			w.view.move(dx,dy)
+			w.view.rotate(dz)
 
 		c2=w.view.center
 		self.PassViewThroughPortal(c1,c2)
